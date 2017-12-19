@@ -1,0 +1,13 @@
+diff --git a/bin/newlist b/bin/newlist
+index 3a3fd95..1d72cd5 100755
+--- a/bin/newlist
++++ b/bin/newlist
+@@ -247,7 +248,7 @@ def main():
+         try:
+             msg = Message.UserNotification(
+                 owner_mail, siteowner,
+-                C_('Your new mailing list: %(listname)s'),
++                _('Your new mailing list: %(listname)s'),
+                 text, mlist.preferred_language)
+             msg.send(mlist)
+         finally:

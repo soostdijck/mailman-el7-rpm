@@ -1,0 +1,23 @@
+=== modified file 'Mailman/Handlers/SpamDetect.py'
+--- Mailman/Handlers/SpamDetect.py	2012-02-05 21:37:29 +0000
++++ Mailman/Handlers/SpamDetect.py	2013-10-08 04:57:09 +0000
+@@ -27,6 +27,7 @@
+ 
+ import re
+ 
++from email.Errors import HeaderParseError
+ from email.Header import decode_header
+ 
+ from Mailman import mm_cfg
+@@ -68,7 +69,10 @@
+     headers = ''
+     for h, v in msg.items():
+         uvalue = u''
+-        v = decode_header(re.sub('\n\s', ' ', v))
++        try:
++            v = decode_header(re.sub('\n\s', ' ', v))
++        except HeaderParseError:
++            v = [(v, 'us-ascii')]
+         for frag, cs in v:
+             if not cs:
+                 cs = 'us-ascii'
